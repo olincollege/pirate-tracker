@@ -1,0 +1,12 @@
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://icc-ccs.org/piracy-map-2024/"
+response = requests.get(url)
+
+if response.status_code == 200:
+    html_content = response.text
+else:
+    print("Failed to retrieve the webpage")
+
+soup = BeautifulSoup(html_content, "html.parser")

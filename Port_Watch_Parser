@@ -1,0 +1,30 @@
+import json
+
+
+def port_watch_data_pretty(jsonfile):
+    """
+    Args:
+    portid: port unique id.
+    portname: port name.
+    lat: latitude of the port location.
+    lon: longitude of the port location.
+    vessel_count_total: yearly average number of all ships calling at the port. Estimated using AIS-derived portcalls data between 2019-2023. The total is calculated over the sum of vessel_count_container, vessel_count_dry_bulk, vessel_count_general_cargo, vessel_count_roro and vessel_count_tanker.
+    vessel_count_container: yearly average number of containers calling at the port. Estimated using AIS-derived portcalls data between 2019-2023.
+    vessel_count_dry_bulk: yearly average number of dry bulk carriers calling at the port. Estimated using AIS-derived portcalls data between 2019-2023.
+    vessel_count_general_cargo: yearly average number of general cargo ships calling at the port. Estimated using AIS-derived portcalls data between 2019-2023.
+    vessel_count_roro: yearly average number of Ro-Ro ships calling at the port. Estimated using AIS-derived portcalls data between 2019-2023.
+    vessel_count_tanker: yearly average number of tankers calling at the port. Estimated using AIS-derived portcalls data between 2019-2023.
+    industry_top1: first dominant traded industries based on the volume of goods estimated to flow through the port.
+    industry_top2: second dominant traded industries based on the volume of goods estimated to flow through the port.
+    industry_top3: third dominant traded industries based on the volume of goods estimated to flow through the port.
+    share_country_maritime_import: based on AIS-derived imports volume at the port-level with respect to country totals during 2019-23.
+    share_country_maritime_export: based on AIS-derived exports volume at the port-level with respect to country totals during 2019-23.
+    """
+    our_data = {}
+    with open(jsonfile, "r") as f:
+        loaded_data = json.load(f)
+
+    print(json.dumps(loaded_data, indent=4))
+
+
+port_watch_data_pretty("Ship_Data.json")

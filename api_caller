@@ -1,0 +1,22 @@
+import requests
+
+
+def fetch_and_save_json_raw(url, filename):
+    """
+    Fetch JSON data from a URL and save it as a json file
+
+    Args:
+        url (str): The url
+        filename (str): The name of the file to save the data to
+
+    Returns:
+    """
+    response = requests.get(url)
+
+    with open(filename, "w", encoding="utf-8") as file:
+        file.write(response.text)  # write json to file
+
+
+api_url = "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/PortWatch_ports_database/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"  # Replace with your actual URL
+filename = "Ship_Data.json"
+fetch_and_save_json_raw(api_url, filename)
