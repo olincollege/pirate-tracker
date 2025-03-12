@@ -1,7 +1,7 @@
 import pdfplumber
 import pandas as pd
 
-def extract_incidents_from_pdf(pdf_path, output_csv="pirate_incidents_cleaned.csv"):
+def extract_incidents_from_pdf(pdf_path, output_csv="poop.csv"):
     rows = []
 
     with pdfplumber.open(pdf_path) as pdf:
