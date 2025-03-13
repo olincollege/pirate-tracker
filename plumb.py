@@ -26,4 +26,5 @@ def extract_incidents_from_pdf(pdf_path, output_csv="poop.csv"):
 
     return df
 
-extract_incidents_from_pdf("/Users/hongyizhang/Downloads/Pirate_Incidents_2024.pdf")
+path = "/Users/hongyizhang/Downloads/Pirate_Incidents_2024.pdf" #replace with your path of pdf
+extract_incidents_from_pdf(path)
