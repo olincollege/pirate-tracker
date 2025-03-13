@@ -1,12 +1,42 @@
 import requests
 from bs4 import BeautifulSoup
+import csv
 
+# Step 1: Fetch the webpage
 url = "https://icc-ccs.org/piracy-map-2024/"
 response = requests.get(url)
 
-if response.status_code == 200:
-    html_content = response.text
-else:
+if response.status_code != 200:
     print("Failed to retrieve the webpage")
+    exit()
 
-soup = BeautifulSoup(html_content, "html.parser")
+# Step 2: Parse the HTML content
+soup = BeautifulSoup(response.text, "html.parser")
+
+
+# Step 3: Find the table — you may need to adjust this selector based on actual HTML
+# Try using class name or tag id if it's more specific
+table = soup.find("table")  # or soup.find("table", {"class": "your-table-class"})
+
+# Step 4: Extract rows
+rows = table.find_all("tr")
+
+# Step 5: Extract header (first row)
+header_cells = rows[0].find_all(["th", "td"])
+headers = [cell.get_text(strip=True) for cell in header_cells]
+
+# Step 6: Extract data rows
+data_rows = []
+for row in rows[1:]:
+    cells = row.find_all("td")
+    data = [cell.get_text(strip=True) for cell in cells]
+    if data:  # skip empty rows
+        data_rows.append(data)
+
+# Step 7: Write to CSV
+with open("piracy_incidents.csv", mode="w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(headers)
+    writer.writerows(data_rows)
+
+print("✅ Data successfully written to piracy_incidents.csv")
