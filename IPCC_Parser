@@ -16,7 +16,9 @@ soup = BeautifulSoup(response.text, "html.parser")
 
 # Step 3: Find the table — you may need to adjust this selector based on actual HTML
 # Try using class name or tag id if it's more specific
-table = soup.find("table")  # or soup.find("table", {"class": "your-table-class"})
+table = soup.find(
+    "table"
+)  # or soup.find("table", {"class": "your-table-class"})
 
 # Step 4: Extract rows
 rows = table.find_all("tr")

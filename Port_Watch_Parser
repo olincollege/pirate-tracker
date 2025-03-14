@@ -1,30 +1,38 @@
 import json
 
 
-def port_watch_data_pretty(jsonfile):
+def extract_selected_port_info(jsonfile, outputfile="filtered_output.json"):
     """
+    Reads a JSON file containing port data and extracts only selected fields
+    for each port entry
+
     Args:
-    portid: port unique id.
-    portname: port name.
-    lat: latitude of the port location.
-    lon: longitude of the port location.
-    vessel_count_total: yearly average number of all ships calling at the port. Estimated using AIS-derived portcalls data between 2019-2023. The total is calculated over the sum of vessel_count_container, vessel_count_dry_bulk, vessel_count_general_cargo, vessel_count_roro and vessel_count_tanker.
-    vessel_count_container: yearly average number of containers calling at the port. Estimated using AIS-derived portcalls data between 2019-2023.
-    vessel_count_dry_bulk: yearly average number of dry bulk carriers calling at the port. Estimated using AIS-derived portcalls data between 2019-2023.
-    vessel_count_general_cargo: yearly average number of general cargo ships calling at the port. Estimated using AIS-derived portcalls data between 2019-2023.
-    vessel_count_roro: yearly average number of Ro-Ro ships calling at the port. Estimated using AIS-derived portcalls data between 2019-2023.
-    vessel_count_tanker: yearly average number of tankers calling at the port. Estimated using AIS-derived portcalls data between 2019-2023.
-    industry_top1: first dominant traded industries based on the volume of goods estimated to flow through the port.
-    industry_top2: second dominant traded industries based on the volume of goods estimated to flow through the port.
-    industry_top3: third dominant traded industries based on the volume of goods estimated to flow through the port.
-    share_country_maritime_import: based on AIS-derived imports volume at the port-level with respect to country totals during 2019-23.
-    share_country_maritime_export: based on AIS-derived exports volume at the port-level with respect to country totals during 2019-23.
+        jsonfile: Path to the input JSON file
+        outputfile: Path to the output file for filtered data 
+
+    Returns:
+        A JSON file with simplified port data including country, continent, portname, and top 3 industries
     """
-    our_data = {}
     with open(jsonfile, "r") as f:
-        loaded_data = json.load(f)
+        data = json.load(f)
 
-    print(json.dumps(loaded_data, indent=4))
+    # Assuming the structure has a 'features' list
+    simplified_data = []
+    for port in data.get("features", []):
+        attrs = port.get("attributes", {})
+        simplified_entry = {
+            "country": attrs.get("country"),
+            "continent": attrs.get("continent"),
+            "portname": attrs.get("portname"),
+            "industry_top1": attrs.get("industry_top1"),
+            "industry_top2": attrs.get("industry_top2"),
+            "industry_top3": attrs.get("industry_top3"),
+        }
+        simplified_data.append(simplified_entry)
+
+    with open(outputfile, "w") as f_out:
+        json.dump(simplified_data, f_out, indent=4)
 
 
-port_watch_data_pretty("Ship_Data.json")
+# Example usage
+extract_selected_port_info("Ship_Data.json", "Ship_Data_Filtered.json")
