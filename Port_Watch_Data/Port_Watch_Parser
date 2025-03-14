@@ -16,7 +16,6 @@ def extract_selected_port_info(jsonfile, outputfile="filtered_output.json"):
     with open(jsonfile, "r") as f:
         data = json.load(f)
 
-    # Assuming the structure has a 'features' list
     simplified_data = []
     for port in data.get("features", []):
         attrs = port.get("attributes", {})
@@ -34,5 +33,4 @@ def extract_selected_port_info(jsonfile, outputfile="filtered_output.json"):
         json.dump(simplified_data, f_out, indent=4)
 
 
-# Example usage
 extract_selected_port_info("Ship_Data.json", "Ship_Data_Filtered.json")
