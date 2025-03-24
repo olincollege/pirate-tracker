@@ -44,20 +44,22 @@ def parse_table_data(table_data):
                 attack_method = row[12] if len(row) > 12 and row[12] != "" else None
 
                 # Check if we need to start a new row and reset the attack description
-                if sn and sn.startswith("#"):  # Indicates a new incident row starts
-                    # If collecting, finalize the previous attack description
-                    if collecting_attack_description:
-                        data["Attack Method & Description"].append(attack_description.strip())
-                        collecting_attack_description = False
+                test_values = list(range(1, 107))
+                for i in test_values:
+                    if sn and sn.startswith(test_values(i) + "."):  # Indicates a new incident row starts
+                        # If collecting, finalize the previous attack description
+                        if collecting_attack_description:
+                            data["Attack Method & Description"].append(attack_description.strip())
+                            collecting_attack_description = False
 
-                    # Start a new attack description
-                    attack_description = attack_method if attack_method else ""
-                    collecting_attack_description = True
+                        # Start a new attack description
+                        attack_description = attack_method if attack_method else ""
+                        collecting_attack_description = True
 
-                else:
-                    # Continue collecting attack descriptions
-                    if collecting_attack_description and attack_method:
-                        attack_description += " " + attack_method
+                    else:
+                        # Continue collecting attack descriptions
+                        if collecting_attack_description and attack_method:
+                            attack_description += " " + attack_method
 
                 # Only append non-empty values to the lists
                 if sn:
