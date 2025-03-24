@@ -5,6 +5,7 @@ import json
 pdf_path = "/mnt/c/Users/sbloom/Downloads/Pirate_Incidents_2024.pdf"
 output_file = "pirate_incidents_parsed.json"  # Output file path
 
+
 # Function to parse the table data and map it to the correct columns
 def parse_table_data(table_data):
     # Create a dictionary to hold all the data
@@ -14,13 +15,13 @@ def parse_table_data(table_data):
         "Incident Type": [],
         "Flag of ship": [],
         "Ship Activity": [],
-        "Attack Method & Description": []
+        "Attack Method & Description": [],
     }
 
     # Initialize variables for processing attack descriptions
     attack_description = ""
     collecting_attack_description = False
-    
+
     # Loop through each row in the table (skipping headers if present)
     for row in table_data[1:]:  # Skipping the first row (header row)
         if row:
@@ -28,9 +29,13 @@ def parse_table_data(table_data):
                 # Extract values based on their column index
                 sn = row[0] if len(row) > 0 and row[0] != "" else None
                 name_of_ship = row[1] if len(row) > 1 and row[1] != "" else None
-                incident_type = row[2] if len(row) > 2 and row[2] != "" else None
+                incident_type = (
+                    row[2] if len(row) > 2 and row[2] != "" else None
+                )
                 flag_of_ship = row[5] if len(row) > 5 and row[5] != "" else None
-                ship_activity_raw = row[11] if len(row) > 11 and row[11] != "" else None
+                ship_activity_raw = (
+                    row[11] if len(row) > 11 and row[11] != "" else None
+                )
                 ship_activity = None
 
                 # Map Ship Activity to "While Sailing" or "At Anchor"
@@ -41,19 +46,27 @@ def parse_table_data(table_data):
                         ship_activity = "At Anchor"
 
                 # Attack Method/Description logic (collect all text until a new "S/N" number)
-                attack_method = row[12] if len(row) > 12 and row[12] != "" else None
+                attack_method = (
+                    row[12] if len(row) > 12 and row[12] != "" else None
+                )
 
                 # Check if we need to start a new row and reset the attack description
                 test_values = list(range(1, 107))
                 for i in test_values:
-                    if sn and sn.startswith(test_values(i) + "."):  # Indicates a new incident row starts
+                    if sn and sn.startswith(
+                        test_values(i) + "."
+                    ):  # Indicates a new incident row starts
                         # If collecting, finalize the previous attack description
                         if collecting_attack_description:
-                            data["Attack Method & Description"].append(attack_description.strip())
+                            data["Attack Method & Description"].append(
+                                attack_description.strip()
+                            )
                             collecting_attack_description = False
 
                         # Start a new attack description
-                        attack_description = attack_method if attack_method else ""
+                        attack_description = (
+                            attack_method if attack_method else ""
+                        )
                         collecting_attack_description = True
 
                     else:
@@ -65,7 +78,9 @@ def parse_table_data(table_data):
                 if sn:
                     data["S/N"].append(sn)
                 if name_of_ship:
-                    data["Name of ship"].append(name_of_ship.replace("\n", " "))  # Clean up multiline values
+                    data["Name of ship"].append(
+                        name_of_ship.replace("\n", " ")
+                    )  # Clean up multiline values
                 if incident_type:
                     data["Incident Type"].append(incident_type)
                 if flag_of_ship:
@@ -83,12 +98,14 @@ def parse_table_data(table_data):
 
     return data
 
+
 # Function to extract the table from the PDF
 def extract_table_from_pdf(pdf_path):
     with pdfplumber.open(pdf_path) as pdf:
         first_page = pdf.pages[0]
         table = first_page.extract_table()
         return table
+
 
 # Main function to drive the process
 if __name__ == "__main__":
