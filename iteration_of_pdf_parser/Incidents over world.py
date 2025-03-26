@@ -31,7 +31,8 @@ def sorting_into_df(csv):
     latitude_list = df["Latitude"].tolist()
     longitude_list = df["Longitude"].tolist()
     description_list = df["Description"].tolist()
-    
+    print(latitude_list)
+    print(len(latitude_list))
     return index_list, latitude_list, longitude_list, description_list
 
 def dms_to_decimal_coordinates(latitude_list, longitude_list):
@@ -78,7 +79,7 @@ def dms_to_decimal_coordinates(latitude_list, longitude_list):
             long_decimal_values.append(decimal_value)
     
     coordinate_points = list(zip(lat_decimal_values, long_decimal_values)) # assembling the final coordinate points.
-    
+    print(len(coordinate_points))
     return coordinate_points
 
 def plotting_incidents_map(coordinate_points): 
