@@ -26,14 +26,15 @@ def sorting_into_df(csv):
     """
     df = pd.read_csv(csv)
 
-    # Matching the columns to their respective lists (index, ..., description)
+    # Matching the columns to their respective lists (index, ..., description, area)
     index_list = df["Index"].tolist()
     latitude_list = df["Latitude"].tolist()
     longitude_list = df["Longitude"].tolist()
+    area_list = df["Area"].tolist()
     description_list = df["Description"].tolist()
     print(latitude_list)
     print(len(latitude_list))
-    return index_list, latitude_list, longitude_list, description_list
+    return index_list, latitude_list, longitude_list, area_list, description_list
 
 def dms_to_decimal_coordinates(latitude_list, longitude_list):
     """
@@ -127,6 +128,6 @@ def plotting_incidents_map(coordinate_points):
     plt.savefig("Pirate_Attacks_Indonesia.png", bbox_inches='tight', pad_inches=0)
     
 # Calling our functions.
-index_list, latitude_list, longitude_list, description_list = sorting_into_df("Lat_Long_Description.csv")
+index_list, latitude_list, longitude_list, area_list, description_list = sorting_into_df("lat_long_area_description.csv")
 decimal_coordinates_final = dms_to_decimal_coordinates(latitude_list, longitude_list)
 plotting_incidents_map(decimal_coordinates_final)

@@ -30,7 +30,7 @@ def clean_text(text):
 
 
 def parse_incidents(text):
-    """Split incidents and extract index, lat, long, and full description."""
+    """Split incidents and extract index, lat, long, area, and full description."""
     raw_entries = re.split(r"\n(?=\d+\.\s)", text)
 
     data = []
@@ -43,7 +43,16 @@ def parse_incidents(text):
         lat_match = re.search(r"(\d{1,3}°\s[\d\.]+'\s[NS])", entry)
         lon_match = re.search(r"(\d{1,3}°\s[\d\.]+'\s[EW])", entry)
 
-        # Match paragraph starting with "While ..." and stopping at a blank line or CAT number
+        # Match area between longitude and "While"
+        area = None
+        if lon_match:
+            # Grab everything after longitude
+            after_lon = entry[lon_match.end():]
+            # Search for "While" and capture everything before it as area
+            area_search = re.search(r"^(.*?)(?=While)", after_lon, re.DOTALL)
+            if area_search:
+                area = " ".join(area_search.group(1).split())
+
         desc_match = re.search(
             r"(While[\s\S]+?)(?:\n\s*\d{1,2}\s*$|\nCAT|\nS/N|$)", entry
         )
@@ -56,8 +65,6 @@ def parse_incidents(text):
             # Clean up and normalize the paragraph
             desc_raw = desc_match.group(1)
             description = " ".join(desc_raw.splitlines()).strip()
-
-            # Fix repeated "While While"
             description = re.sub(r"\bWhile\s+While\b", "While", description)
 
             data.append(
@@ -65,6 +72,7 @@ def parse_incidents(text):
                     "Index": index,
                     "Latitude": lat,
                     "Longitude": lon,
+                    "Area": area,
                     "Description": description,
                 }
             )
@@ -72,9 +80,10 @@ def parse_incidents(text):
     return pd.DataFrame(data)
 
 
+
 pdf_path = "Pirate_Tracker.pdf"  # same directory
 raw_text = extract_pdf_text(pdf_path)
 cleaned_text = clean_text(raw_text)
 df = parse_incidents(cleaned_text)
 
-df.to_csv("cleaned_pirate_data.csv", index=False)
+df.to_csv("lat_long_area_description.csv", index=False)
