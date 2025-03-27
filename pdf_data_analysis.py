@@ -16,12 +16,12 @@ def extract_pirate_locations(pdf_path, output_csv):
     """
     doc = fitz.open(pdf_path)
 
-    # Extract text from all pages
+    # extract text
     full_text = ""
     for page in doc:
         full_text += page.get_text()
 
-    # Split the text into chunks for each incident
+    # split the text into chunks for each incident
     incident_blocks = re.findall(
         r"(\d+\.\s+.*?)(?=\n\d+\.\s+|\Z)", full_text, re.DOTALL
     )
@@ -140,6 +140,9 @@ import re
 
 
 def extract_top_contextual_phrases(file_path):
+    """
+    qwer
+    """
     # define core keywords by category
     keywords = {
         "hostage": [

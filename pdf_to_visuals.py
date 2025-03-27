@@ -72,6 +72,8 @@ def plotting_incidents_map(coordinate_points):
 
     Args:
         coordinate_points - A list of (lat, lon) tuples.
+
+    Returns:
     """
     geometry = [Point(lon, lat) for lat, lon in coordinate_points]
     gdf = GeoDataFrame(geometry=geometry)
