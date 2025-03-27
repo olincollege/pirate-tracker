@@ -11,27 +11,26 @@ This project takes all the pirate attacks over the course of a year and analyzes
 
 ### Requirements ### 
 Make sure to install all the required libraries from the `requirements.text` file.
-```
+```sh
 pip install -r ~/pirate-tracker/Home/requirements.txt
 ```
+
 ## Methodology
 <hr>
 
-## Collecting our Data on Pirate Attacks
-We had first acquired the **API** from an online provider (HONG FILL THIS OUT)
+## Visualizing Pirate Attacks Across the Globe
+Online, we had pulled a PDF of all the pirate attacks/incidents that occured over the course of the 2024 year. Given this information, we were able to use an online library, `pdfplumber`, to help digest this information. 
+
+Here is the function we had used to collect the text:
+```sh
+with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            full_text += page.extract_text() + "\n"
 ```
-coode is here
-```
+A massive flaw of `pdfplumber` was that the text collects line by line by line. Given this information, we have to further our rendering of the data by removing the headers and the
+### 
+Given a function that examines the text from a pdf
 
-
-
-
-
-Click on the "Use this template" button in the top right corner to create a new
-repository based on this template. If this is for a class project, we ask that
-you keep it in the `olincollege` GitHub organization, and that you refrain from
-keeping the repository private. This will ensure that relevant people can access
-your repository for assessment, etc.
 
 ## Requirements
 
