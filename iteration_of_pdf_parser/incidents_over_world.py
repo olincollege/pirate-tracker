@@ -6,7 +6,6 @@ from geopandas import GeoDataFrame
 import geodatasets
 import matplotlib.pyplot as plt
 
-
 def sorting_into_df(csv):
     """
     Given a CSV file, seperates the given information into seperate
@@ -80,7 +79,7 @@ def dms_to_decimal_coordinates(latitude_list, longitude_list):
             long_decimal_values.append(decimal_value)
     
     coordinate_points = list(zip(lat_decimal_values, long_decimal_values)) # assembling the final coordinate points.
-    print(len(coordinate_points))
+    
     return coordinate_points
 
 def plotting_incidents_map(coordinate_points): 
