@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -76,17 +110,23 @@ ul.task-list li input[type="checkbox"] {
 <section id="requirements" class="level3">
 <h3 class="anchored" data-anchor-id="requirements">Requirements</h3>
 <p>Make sure to install all the required libraries from the <code>requirements.text</code> file.</p>
-<pre><code>pip install -r ~/pirate-tracker/Home/requirements.txt</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> ~/pirate-tracker/Home/requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
 <hr>
 </section>
-<section id="collecting-our-data-on-pirate-attacks" class="level2">
-<h2 class="anchored" data-anchor-id="collecting-our-data-on-pirate-attacks">Collecting our Data on Pirate Attacks</h2>
-<p>We had first acquired the <strong>API</strong> from an online provider (HONG FILL THIS OUT)</p>
-<pre><code>coode is here</code></pre>
-<p>Click on the “Use this template” button in the top right corner to create a new repository based on this template. If this is for a class project, we ask that you keep it in the <code>olincollege</code> GitHub organization, and that you refrain from keeping the repository private. This will ensure that relevant people can access your repository for assessment, etc.</p>
+<section id="visualizing-pirate-attacks-across-the-globe" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-pirate-attacks-across-the-globe">Visualizing Pirate Attacks Across the Globe</h2>
+<p>Online, we had pulled a PDF of all the pirate attacks/incidents that occured over the course of the 2024 year. Given this information, we were able to use an online library, <code>pdfplumber</code>, to help digest this information.</p>
+<p>Here is the function we had used to collect the text:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">with</span> pdfplumber.open<span class="er">(</span><span class="ex">pdf_path</span><span class="kw">)</span> <span class="fu">as</span> pdf:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> page <span class="kw">in</span> pdf.pages:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            <span class="ex">full_text</span> += page.extract_text<span class="er">(</span><span class="kw">)</span> <span class="ex">+</span> <span class="st">"\n"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+<p>Given a function that examines the text from a pdf</p>
+</section>
 </section>
 <section id="requirements-1" class="level2">
 <h2 class="anchored" data-anchor-id="requirements-1">Requirements</h2>
