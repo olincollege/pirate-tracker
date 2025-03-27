@@ -62,7 +62,7 @@ def dms_to_decimal_coordinates(latitude_list, longitude_list):
             long_decimal_values.append(decimal_value)
 
     coordinate_points = list(zip(lat_decimal_values, long_decimal_values))
-    print(f"Extracted {len(coordinate_points)} coordinate points")
+    print(coordinate_points)
     return coordinate_points
 
 

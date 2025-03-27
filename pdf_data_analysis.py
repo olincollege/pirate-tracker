@@ -7,12 +7,21 @@ def extract_pirate_locations(pdf_path, output_csv):
     """
     Extracts latitude, longitude, and area location for each pirate incident from a PDF report.
 
-    Args:
+    Libraries Accessed:
+
+        regex -> used to analyze structure in the pdf.
+        fitz -> used to open the file for further analysis.
+        pandas -> sort the data into dataframes, upon which can be used.
+        
+    ARGS: 
+    
         pdf_path (str): Path to the pirate tracker PDF file.
         output_csv (str): Path to the output CSV file to save extracted data.
 
     Returns:
+    
         pd.DataFrame: A DataFrame containing incident index, latitude, longitude, and area location.
+        
     """
     doc = fitz.open(pdf_path)
 
@@ -66,6 +75,10 @@ def area_counter(csv_path, keywords=None):
     """
     Load a CSV file and print the most common keywords found in the 'Area Location' column.
 
+    Libraries Used:
+
+        pandas -> used to process through the csv.
+        
     Args:
         csv_path: Path to the CSV file containing the 'Area Location' column.
         keywords: Optional list of keywords to search for (case-insensitive).
@@ -95,10 +108,9 @@ def area_counter(csv_path, keywords=None):
     print("Most common area keywords:\n")
     print(pd.Series(counts).sort_values(ascending=False))
 
-
-import fitz  # PyMuPDF
+# importing again.
+import fitz
 import re
-
 
 def extract_incident_descriptions(pdf_path, output_file):
     """
