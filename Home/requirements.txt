@@ -1,2 +1,7 @@
+geodatasets~=2024.8.0
+geopandas~=1.0.1
+matplotlib~=3.10.1
 pandas~=2.2.3
 pdfplumber~=0.11.5
+regex~=2024.9.11
+Shapely~=2.0.7

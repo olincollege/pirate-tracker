@@ -1,10 +1,31 @@
-# Python Project Template Repository
+---
+title: Pirate Booty
+authors: Hong Zhang, Samuel Bloom
+jupyter: python3
+---
+<hr>
 
-This is a template repository for a Python project. Feel free to use and edit
-this repository (including this file) for your needs. Below, find some
-instructions and tips for using this template repository.
+### Description ###
+This project takes all the pirate attacks over the course of a year and analyzes them based on location and description. Based on these attributes, we can decipher the results of many pirate attacks, which areas are most susceptible, and better understand what specifically drives pirates to steal certain materials.
 
-## How to Use
+
+### Requirements ### 
+Make sure to install all the required libraries from the `requirements.text` file.
+```
+pip install -r ~/pirate-tracker/Home/requirements.txt
+```
+## Methodology
+<hr>
+
+## Collecting our Data on Pirate Attacks
+We had first acquired the **API** from an online provider (HONG FILL THIS OUT)
+```
+coode is here
+```
+
+
+
+
 
 Click on the "Use this template" button in the top right corner to create a new
 repository based on this template. If this is for a class project, we ask that
