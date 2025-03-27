@@ -1,5 +1,6 @@
 import requests
 
+
 def fetch_and_save_json_raw(url, filename):
     """
     Fetch JSON data from a URL and save it as a json file

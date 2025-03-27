@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def most_common_area_keywords(df, keywords=None):
     """
     Count how often each keyword appears in the 'Area Location' column using only pandas.
@@ -20,7 +21,7 @@ def most_common_area_keywords(df, keywords=None):
             "vietnam",
             "south china sea",
             "india",
-            "malaysia"
+            "malaysia",
         ]
 
     # Use the correct column name: 'Area Location'
@@ -28,15 +29,18 @@ def most_common_area_keywords(df, keywords=None):
 
     counts = {}
     for kw in keywords:
-        mask = df["Area Location"].str.contains(rf"\b{kw.lower()}\b", regex=True)
+        mask = df["Area Location"].str.contains(
+            rf"\b{kw.lower()}\b", regex=True
+        )
         counts[kw] = mask.sum()
 
     return pd.Series(counts).sort_values(ascending=False)
 
+
 def test_area_keyword_counts(csv_path):
     """
     Load a CSV and print the most common area keywords.
-    
+
     Args:
         csv_path: Path to the CSV file containing the 'Area Location' column.
     """
