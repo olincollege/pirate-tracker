@@ -13,7 +13,15 @@ def extract_country_industries(jsonfile, outputfile="country_industries.json"):
         A JSON file where each key is a country and the value is a list of unique industries
         mentioned across all its ports.
     """
-    selected_countries = {"Malacca", "indonesia", "bangladesh", "philippines", "vietnam", "china", "india"}
+    selected_countries = {
+        "Malacca",
+        "indonesia",
+        "bangladesh",
+        "philippines",
+        "vietnam",
+        "china",
+        "india",
+    }
 
     with open(jsonfile, "r") as f:
         data = json.load(f)
@@ -40,4 +48,4 @@ def extract_country_industries(jsonfile, outputfile="country_industries.json"):
 
 
 # Example usage
-extract_country_industries("Ship_Data.json", "Country_Industries.json")
+extract_country_industries("Ship_Data.json", "top_countries_industries.json")
