@@ -33,6 +33,16 @@ for desc in incident_blocks:
         if phrase in desc:
             phrase_counts[phrase] += 1
 
-# Display results
-for phrase, count in phrase_counts.items():
+# Sort by count (descending) and display
+# Turn the dictionary into a list of tuples
+items = list(phrase_counts.items())
+
+# Manual sorting using a simple selection sort
+for i in range(len(items)):
+    for j in range(i + 1, len(items)):
+        if items[j][1] > items[i][1]:
+            items[i], items[j] = items[j], items[i]  # Swap
+
+# Now 'items' is sorted by count (descending)
+for phrase, count in items:
     print(f'"{phrase}": {count}')
