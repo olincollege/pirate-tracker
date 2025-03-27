@@ -1,21 +1,10 @@
 ---
-title: Pirate Booty
-authors: Hong Zhang, Samuel Bloom
+title: README
 jupyter: python3
 ---
 <hr>
 
-### Description ###
-This project takes all the pirate attacks over the course of a year and analyzes them based on location and description. Based on these attributes, we can decipher the results of many pirate attacks, which areas are most susceptible, and better understand what specifically drives pirates to steal certain materials.
-
-
-### Requirements ### 
-Make sure to install all the required libraries from the `requirements.text` file.
-```sh
-pip install -r ~/pirate-tracker/Home/requirements.txt
-```
-
-## Methodology
+## How to Use
 <hr>
 
 ## Visualizing Pirate Attacks Across the Globe
