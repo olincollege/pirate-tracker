@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Pirate Booty</title>
+<title>README</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -79,19 +79,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Pirate Booty</h1>
+<h1 class="title">README</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Hong Zhang, Samuel Bloom </p>
-          </div>
-  </div>
     
   
     
@@ -103,33 +97,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <hr>
-<section id="description" class="level3">
-<h3 class="anchored" data-anchor-id="description">Description</h3>
-<p>This project takes all the pirate attacks over the course of a year and analyzes them based on location and description. Based on these attributes, we can decipher the results of many pirate attacks, which areas are most susceptible, and better understand what specifically drives pirates to steal certain materials.</p>
-</section>
-<section id="requirements" class="level3">
-<h3 class="anchored" data-anchor-id="requirements">Requirements</h3>
-<p>Make sure to install all the required libraries from the <code>requirements.text</code> file.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> ~/pirate-tracker/Home/requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="methodology" class="level2">
-<h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
+<section id="how-to-use" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-use">How to Use</h2>
 <hr>
 </section>
 <section id="visualizing-pirate-attacks-across-the-globe" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-pirate-attacks-across-the-globe">Visualizing Pirate Attacks Across the Globe</h2>
 <p>Online, we had pulled a PDF of all the pirate attacks/incidents that occured over the course of the 2024 year. Given this information, we were able to use an online library, <code>pdfplumber</code>, to help digest this information.</p>
 <p>Here is the function we had used to collect the text:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">with</span> pdfplumber.open<span class="er">(</span><span class="ex">pdf_path</span><span class="kw">)</span> <span class="fu">as</span> pdf:</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> page <span class="kw">in</span> pdf.pages:</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            <span class="ex">full_text</span> += page.extract_text<span class="er">(</span><span class="kw">)</span> <span class="ex">+</span> <span class="st">"\n"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section"></h3>
-<p>Given a function that examines the text from a pdf</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">with</span> pdfplumber.open<span class="er">(</span><span class="ex">pdf_path</span><span class="kw">)</span> <span class="fu">as</span> pdf:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> page <span class="kw">in</span> pdf.pages:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>            <span class="ex">full_text</span> += page.extract_text<span class="er">(</span><span class="kw">)</span> <span class="ex">+</span> <span class="st">"\n"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A massive flaw of <code>pdfplumber</code> was that the text collects line by line by line. Given this information, we have to further our rendering of the data by removing the headers and the ### Given a function that examines the text from a pdf</p>
 </section>
-</section>
-<section id="requirements-1" class="level2">
-<h2 class="anchored" data-anchor-id="requirements-1">Requirements</h2>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
 <p>The <code>requirements.txt</code> file is blank and should be filled out with any project dependencies. There is a Python package called <code>pipreqs</code> that autogenerates the contents of the <code>requirements.txt</code> file based on the <code>import</code> statements in your <code>.py</code> files. To get this, run</p>
 <pre><code>pip install pipreqs</code></pre>
 <p>Then, in the root of your project repository, run:</p>
