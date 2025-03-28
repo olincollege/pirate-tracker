@@ -98,13 +98,3 @@ def plotting_incidents_map(coordinate_points):
     plt.savefig(
         "Pirate_Attacks_Southeast_Asia.png", bbox_inches="tight", pad_inches=0
     )
-
-
-# Run the full pipeline
-index_list, latitude_list, longitude_list, area_list = sorting_into_df(
-    "pirate_locations.csv"
-)
-decimal_coordinates_final = dms_to_decimal_coordinates(
-    latitude_list, longitude_list
-)
-plotting_incidents_map(decimal_coordinates_final)

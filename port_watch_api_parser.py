@@ -1,5 +1,5 @@
-import requests
 import json
+import requests
 
 
 def download_portwatch_data():
@@ -18,7 +18,8 @@ def download_portwatch_data():
 
 def extract_country_industries(jsonfile, outputfile):
     """
-    Extracts and groups top industries by country from a JSON file containing port data.
+    Extracts and groups top industries by country from a JSON file containing port data,
+    prints the result, and saves it to a file.
 
     Args:
         jsonfile: Path to the input JSON file.
@@ -29,7 +30,7 @@ def extract_country_industries(jsonfile, outputfile):
         mentioned across all its ports.
     """
     selected_countries = {
-        "Malacca",
+        "malacca",
         "indonesia",
         "bangladesh",
         "philippines",
@@ -52,14 +53,14 @@ def extract_country_industries(jsonfile, outputfile):
                 if industry:
                     country_industries[country].add(industry)
 
-    # Convert sets to sorted lists for JSON serialization
     country_industries = {
         country: sorted(list(industries))
         for country, industries in country_industries.items()
     }
 
+    print("Extracted country industries:")
+    for country, industries in country_industries.items():
+        print(f"{country.title()}: {', '.join(industries)}")
+
     with open(outputfile, "w") as f_out:
         json.dump(country_industries, f_out, indent=4)
-
-
-extract_country_industries("Ship_Data.json", "top_countries_industries.json")
