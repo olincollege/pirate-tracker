@@ -1,4 +1,7 @@
 {
+    "bangladesh": [],
+    "vietnam": [],
+    "malacca": [],
     "philippines": [
         "Animal & Animal Products",
         "Chemical & Allied Industries",
@@ -10,17 +13,7 @@
         "Vegetable Products",
         "Vehicles & Equipment"
     ],
-    "china": [
-        "Chemical & Allied Industries",
-        "Machinery & Electrical Equipment",
-        "Metals",
-        "Mineral Products",
-        "Plastics, Rubber, Leather",
-        "Prepared Foodstuffs & Beverages",
-        "Vegetable Products",
-        "Wood & Wood Products"
-    ],
-    "Malacca": [],
+    "india": [],
     "indonesia": [
         "Chemical & Allied Industries",
         "Machinery & Electrical Equipment",
@@ -31,7 +24,14 @@
         "Vegetable Products",
         "Wood & Wood Products"
     ],
-    "vietnam": [],
-    "india": [],
-    "bangladesh": []
+    "china": [
+        "Chemical & Allied Industries",
+        "Machinery & Electrical Equipment",
+        "Metals",
+        "Mineral Products",
+        "Plastics, Rubber, Leather",
+        "Prepared Foodstuffs & Beverages",
+        "Vegetable Products",
+        "Wood & Wood Products"
+    ]
 }

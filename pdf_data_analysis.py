@@ -1,3 +1,10 @@
+"""
+PDF Data Analysis Tool for Pirate Incidents
+
+This script extracts coordinates, descriptions, and contextual phrases from
+pirate attack reports in PDF format. Outputs include CSVs and text files.
+"""
+
 import re
 import fitz  # PyMuPDF
 import pandas as pd
@@ -5,7 +12,8 @@ import pandas as pd
 
 def extract_pirate_locations(pdf_path, output_csv):
     """
-    Extracts latitude, longitude, and area location for each pirate incident from a PDF report.
+    Extracts latitude, longitude, and area location
+    for each pirate incident from a PDF report.
 
     Libraries:
 
@@ -18,8 +26,8 @@ def extract_pirate_locations(pdf_path, output_csv):
         output_csv (str): Path to the output CSV file to save extracted data.
 
     Returns:
-        A dataFrame containing incident index, latitude, longitude, and area location, also saved to a CSV file.
-
+        A dataFrame containing incident index, latitude,
+        longitude, and area location, also saved to a CSV file.
     """
     doc = fitz.open(pdf_path)
 
@@ -45,13 +53,8 @@ def extract_pirate_locations(pdf_path, output_csv):
         # Try to find the line after the longitude
         area_location = None
         if lon_match:
-            post_lon_text = block[lon_match.end() :]
-            lines = post_lon_text.strip().split("\n")
-            for line in lines:
-                line = line.strip()
-                if line:
-                    area_location = line
-                    break
+            post_lon_text = block[lon_match.end() :].strip()
+            area_location = post_lon_text.split("\n")[0]
 
         data.append(
             {
@@ -71,17 +74,21 @@ def extract_pirate_locations(pdf_path, output_csv):
 
 def area_counter(csv_path, keywords=None):
     """
-    Loads a CSV file and counts the most common keywords found in the 'Area Location' column.
+    Loads a CSV file and counts the most common keywords
+    found in the 'Area Location' column.
 
     Libraries:
         pandas -> Used to process and filter information from the CSV file.
 
     ARGS:
-        csv_path (str): Path to the CSV file containing the 'Area Location' column.
-        keywords (list, optional): List of keywords to search for (case-insensitive). Defaults to a predefined set.
+        csv_path (str): Path to the CSV file containing
+        the 'Area Location' column.
+        keywords (list, optional): List of keywords to
+        search for (case-insensitive). Defaults to a predefined set.
 
     Returns:
-        None: Prints the frequency of each keyword in the 'Area Location' column.
+        None: Prints the frequency of each
+        keyword in the 'Area Location' column.
     """
     if keywords is None:
         keywords = [
@@ -109,14 +116,10 @@ def area_counter(csv_path, keywords=None):
     print(pd.Series(counts).sort_values(ascending=False))
 
 
-# importing again.
-import fitz
-import re
-
-
 def extract_incident_descriptions(pdf_path, output_file):
     """
-    Extracts incident descriptions from a pirate attack PDF and writes them to a text file.
+    Extracts incident descriptions from a pirate
+    attack PDF and writes them to a text file.
 
     Libraries:
 
@@ -125,7 +128,8 @@ def extract_incident_descriptions(pdf_path, output_file):
 
     ARGS:
         pdf_path (str): Path to the PDF file containing pirate attack reports.
-        output_file (str): Path to the output file where extracted descriptions will be saved.
+        output_file (str): Path to the output file where
+        extracted descriptions will be saved.
 
     Returns:
         The number of descriptions extracted and saved to the file.
@@ -138,7 +142,7 @@ def extract_incident_descriptions(pdf_path, output_file):
         full_text += page.get_text()
 
     description_pattern = re.compile(
-        r"(While (?:.|\n)+?)(?:\n\s*(?:[1-5]|NA)\s*\n)",  # get rid of cat values (1-5 and N/A)
+        r"(While (?:.|\n)+?)(?:\n\s*(?:[1-5]|NA)\s*\n)",
         re.IGNORECASE,
     )
 
@@ -155,9 +159,6 @@ def extract_incident_descriptions(pdf_path, output_file):
     print(f"Saved {len(descriptions_cleaned)} descriptions to '{output_file}'")
 
 
-import re
-
-
 def extract_top_contextual_phrases(file_path):
     """
     Extracts the top contextual phrases from pirate incident descriptions.
@@ -166,7 +167,8 @@ def extract_top_contextual_phrases(file_path):
         re -> Used to analyze text structure and extract relevant phrases.
 
     ARGS:
-        file_path (str): Path to the text file containing pirate attack descriptions.
+        file_path (str): Path to the text file
+        containing pirate attack descriptions.
 
     Returns:
         The top 20 most frequent contextual phrases.
@@ -236,14 +238,7 @@ def extract_top_contextual_phrases(file_path):
 
     # sorting by frequency (descending)
     sorted_phrases = list(relevant_phrases.items())
-
-    for i, (_, count_i) in enumerate(sorted_phrases):
-        for j, (_, count_j) in enumerate(sorted_phrases[i + 1 :], start=i + 1):
-            if count_j > count_i:
-                sorted_phrases[i], sorted_phrases[j] = (
-                    sorted_phrases[j],
-                    sorted_phrases[i],
-                )
+    sorted_phrases.sort(key=lambda x: x[1], reverse=True)
 
     # top 20 phrases
     print("\nTop 20 contextual phrases:")
