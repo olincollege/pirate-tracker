@@ -1,3 +1,23 @@
+"""
+Pirate Incident Map Plotter
+
+This script reads pirate incident data from a CSV file, converts coordinates
+from DMS (degrees, minutes, seconds) format to decimal, and plots them on
+world and Southeast Asia maps.
+
+Uses:
+    - pandas: for reading CSV files
+    - regex: for parsing DMS coordinates
+    - shapely and geopandas: for mapping and plotting points
+    - geodatasets: for world map data
+    - matplotlib: for plotting
+
+Functions:
+    - sorting_into_df(csv): gets data from the CSV
+    - dms_to_decimal_coordinates(lat_list, long_list): converts DMS to decimal
+    - plotting_incidents_map(points): plots coordinates on maps
+"""
+
 import pandas as pd
 import regex as re
 from shapely.geometry import Point
@@ -35,7 +55,8 @@ def sorting_into_df(csv):
 
 def dms_to_decimal_coordinates(latitude_list, longitude_list):
     """
-    Given coordinates in DMS format (degrees, minutes, seconds) for locations, convert to...
+    Given coordinates in DMS format
+    (degrees, minutes, seconds) for locations, convert to...
     longitude and latitude coordinate points.
 
     Libraries:
@@ -50,7 +71,8 @@ def dms_to_decimal_coordinates(latitude_list, longitude_list):
 
     Returns:
 
-        A list containing coordinate points (tuples) of latitude and longitude values.
+        A list containing coordinate points
+        (tuples) of latitude and longitude values.
     """
     lat_decimal_values = []
     long_decimal_values = []
@@ -84,12 +106,14 @@ def dms_to_decimal_coordinates(latitude_list, longitude_list):
 
 def plotting_incidents_map(coordinate_points):
     """
-    Given a list of tuples (coordinate points), plot the coordinate points over...
+    Given a list of tuples (coordinate points),
+    plot the coordinate points over...
     over the world map for visualization.
 
     Libraries used:
 
-        Geopandas -> Converts coordinate points into geographic dataframe and loads world map data.
+        Geopandas -> Converts coordinate points into
+        geographic dataframe and loads world map data.
 
         Shapely -> Transforms lat/long pairs into plottable points.
 
