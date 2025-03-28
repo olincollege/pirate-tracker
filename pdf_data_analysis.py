@@ -19,7 +19,7 @@ def extract_pirate_locations(pdf_path, output_csv):
 
     Returns:
         A dataFrame containing incident index, latitude, longitude, and area location, also saved to a CSV file.
-        
+
     """
     doc = fitz.open(pdf_path)
 
@@ -82,7 +82,7 @@ def area_counter(csv_path, keywords=None):
 
     Returns:
         None: Prints the frequency of each keyword in the 'Area Location' column.
-    """ 
+    """
     if keywords is None:
         keywords = [
             "straits of malacca",
@@ -130,7 +130,7 @@ def extract_incident_descriptions(pdf_path, output_file):
     Returns:
         The number of descriptions extracted and saved to the file.
     """
-    
+
     doc = fitz.open(pdf_path)
 
     full_text = ""
@@ -153,9 +153,10 @@ def extract_incident_descriptions(pdf_path, output_file):
             f.write(f"{i}. {desc}\n\n")
 
     print(f"Saved {len(descriptions_cleaned)} descriptions to '{output_file}'")
-    return len(descriptions_cleaned)
+
 
 import re
+
 
 def extract_top_contextual_phrases(file_path):
     """
@@ -237,9 +238,12 @@ def extract_top_contextual_phrases(file_path):
     sorted_phrases = list(relevant_phrases.items())
 
     for i, (_, count_i) in enumerate(sorted_phrases):
-        for j, (_, count_j) in enumerate(sorted_phrases[i + 1:], start=i + 1):
+        for j, (_, count_j) in enumerate(sorted_phrases[i + 1 :], start=i + 1):
             if count_j > count_i:
-                sorted_phrases[i], sorted_phrases[j] = sorted_phrases[j], sorted_phrases[i]
+                sorted_phrases[i], sorted_phrases[j] = (
+                    sorted_phrases[j],
+                    sorted_phrases[i],
+                )
 
     # top 20 phrases
     print("\nTop 20 contextual phrases:")
