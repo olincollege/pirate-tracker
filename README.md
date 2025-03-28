@@ -13,20 +13,18 @@ The URL used in the code points to the PortWatch API, where it fetches the port 
 
 If you want to learn more about how to use their API, you can check out the [ArcGIS REST API documentation](https://developers.arcgis.com/rest/services-reference/enterprise/query-feature-service-layer/).
 
+## Requirements
 
-
-## Requirements ##
 Make sure to install all the required libraries from the `requirements.text` file below. By running the code below in the terminal, you should have all the required libraries to run this code. Make sure to also run the import function.
 
 ```{python}
 pip install -r requirements.txt
 ```
 
-## Overview of Repo ##
-All of our functions are either in `pdf_data_analysis.py`, `pdf_to_visuals`, and `port_watch_api_parser.py`. We simply called the functions in our computational essay and also provided visuals. 
+## Overview of Repo
+
+All of our functions are either in `pdf_data_analysis.py`, `pdf_to_visuals`, and `port_watch_api_parser.py`. We simply called the functions in our computational essay and also provided visuals.
 
 If you want to download the Pirate_Tracker.pdf for yourself onto your own computer, head over to https://www.recaap.org/ and download the 2024 pdf on the left side. It is also located in the repository itself!
 
 Make sure that all the neccesary libraries are installed correctly and you are in an updated enough anaconda base. For us, we used a anaconda base python version of 3.12.9!
-
-

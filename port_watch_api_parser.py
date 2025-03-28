@@ -1,13 +1,22 @@
+"""
+Module for downloading and parsing PortWatch port database.
+"""
+
 import json
 import requests
 
 
 def download_portwatch_data():
     """
-    Fetches PortWatch port database JSON from a specific ArcGIS REST API endpoint
+    Fetches PortWatch port database JSON from
+    a specific ArcGIS REST API endpoint
     and saves it to 'Ship_Data.json'.
     """
-    api_url = "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/PortWatch_ports_database/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
+    api_url = (
+        "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/"
+        "PortWatch_ports_database/FeatureServer/0/query?"
+        "where=1%3D1&outFields=*&outSR=4326&f=json"
+    )
     filename = "Ship_Data.json"
 
     response = requests.get(api_url, timeout=10)
@@ -18,7 +27,8 @@ def download_portwatch_data():
 
 def extract_country_industries(jsonfile, outputfile):
     """
-    Extracts and groups top industries by country from a JSON file containing port data,
+    Extracts and groups top industries by country
+    from a JSON file containing port data,
     prints the result, and saves it to a file.
 
     Args:
@@ -26,7 +36,8 @@ def extract_country_industries(jsonfile, outputfile):
         outputfile: Path to the output file for grouped data.
 
     Returns:
-        A JSON file where each key is a country and the value is a list of unique industries
+        A JSON file where each key is a country and
+        the value is a list of unique industries
         mentioned across all its ports.
     """
     selected_countries = {
@@ -39,7 +50,7 @@ def extract_country_industries(jsonfile, outputfile):
         "india",
     }
 
-    with open(jsonfile, "r") as f:
+    with open(jsonfile, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     country_industries = {country: set() for country in selected_countries}
@@ -62,5 +73,5 @@ def extract_country_industries(jsonfile, outputfile):
     for country, industries in country_industries.items():
         print(f"{country.title()}: {', '.join(industries)}")
 
-    with open(outputfile, "w") as f_out:
+    with open(outputfile, "w", encoding="utf-8") as f_out:
         json.dump(country_industries, f_out, indent=4)
