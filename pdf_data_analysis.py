@@ -7,21 +7,19 @@ def extract_pirate_locations(pdf_path, output_csv):
     """
     Extracts latitude, longitude, and area location for each pirate incident from a PDF report.
 
-    Libraries Accessed:
+    Libraries:
 
-        regex -> used to analyze structure in the pdf.
-        fitz -> used to open the file for further analysis.
-        pandas -> sort the data into dataframes, upon which can be used.
+        re -> Used to analyze text structure in the PDF.
+        fitz -> Used to extract text from PDF files.
+        pandas -> Used to store and process extracted data in DataFrames.
 
     ARGS:
-
         pdf_path (str): Path to the pirate tracker PDF file.
         output_csv (str): Path to the output CSV file to save extracted data.
 
     Returns:
-
-        pd.DataFrame: A DataFrame containing incident index, latitude, longitude, and area location.
-
+        A dataFrame containing incident index, latitude, longitude, and area location, also saved to a CSV file.
+        
     """
     doc = fitz.open(pdf_path)
 
@@ -73,16 +71,18 @@ def extract_pirate_locations(pdf_path, output_csv):
 
 def area_counter(csv_path, keywords=None):
     """
-    Load a CSV file and print the most common keywords found in the 'Area Location' column.
+    Loads a CSV file and counts the most common keywords found in the 'Area Location' column.
 
-    Libraries Used:
+    Libraries:
+        pandas -> Used to process and filter information from the CSV file.
 
-        pandas -> used to process through the csv.
+    ARGS:
+        csv_path (str): Path to the CSV file containing the 'Area Location' column.
+        keywords (list, optional): List of keywords to search for (case-insensitive). Defaults to a predefined set.
 
-    Args:
-        csv_path: Path to the CSV file containing the 'Area Location' column.
-        keywords: Optional list of keywords to search for (case-insensitive).
-    """
+    Returns:
+        None: Prints the frequency of each keyword in the 'Area Location' column.
+    """ 
     if keywords is None:
         keywords = [
             "straits of malacca",
@@ -118,13 +118,19 @@ def extract_incident_descriptions(pdf_path, output_file):
     """
     Extracts incident descriptions from a pirate attack PDF and writes them to a text file.
 
-    Args:
+    Libraries:
+
+        fitz -> Used to access and extract text from the PDF.
+        re -> Used to analyze text structure and extract relevant descriptions.
+
+    ARGS:
         pdf_path (str): Path to the PDF file containing pirate attack reports.
-        output_file (str): Path to the output text file where descriptions will be saved.
+        output_file (str): Path to the output file where extracted descriptions will be saved.
 
     Returns:
-        int: The number of incident descriptions extracted and saved.
+        The number of descriptions extracted and saved to the file.
     """
+    
     doc = fitz.open(pdf_path)
 
     full_text = ""
@@ -149,13 +155,20 @@ def extract_incident_descriptions(pdf_path, output_file):
     print(f"Saved {len(descriptions_cleaned)} descriptions to '{output_file}'")
     return len(descriptions_cleaned)
 
-
 import re
-
 
 def extract_top_contextual_phrases(file_path):
     """
-    qwer
+    Extracts the top contextual phrases from pirate incident descriptions.
+
+    Libraries:
+        re -> Used to analyze text structure and extract relevant phrases.
+
+    ARGS:
+        file_path (str): Path to the text file containing pirate attack descriptions.
+
+    Returns:
+        The top 20 most frequent contextual phrases.
     """
     # define core keywords by category
     keywords = {
@@ -196,14 +209,14 @@ def extract_top_contextual_phrases(file_path):
         re.sub(r"[^\w\s]", "", block.lower()) for block in incident_blocks
     ]
 
-    N = 5
+    n = 5
     relevant_phrases = {}
 
     all_keywords = set(sum(keywords.values(), [])) | set(context_words)
 
     for block in incident_blocks:
         words = block.split()
-        ngrams = zip(*[words[i:] for i in range(N)])
+        ngrams = zip(*[words[i:] for i in range(n)])
 
         for gram in ngrams:
             gram_set = set(gram)
@@ -222,13 +235,11 @@ def extract_top_contextual_phrases(file_path):
 
     # sorting by frequency (descending)
     sorted_phrases = list(relevant_phrases.items())
-    for i in range(len(sorted_phrases)):
-        for j in range(i + 1, len(sorted_phrases)):
-            if sorted_phrases[j][1] > sorted_phrases[i][1]:
-                sorted_phrases[i], sorted_phrases[j] = (
-                    sorted_phrases[j],
-                    sorted_phrases[i],
-                )
+
+    for i, (_, count_i) in enumerate(sorted_phrases):
+        for j, (_, count_j) in enumerate(sorted_phrases[i + 1:], start=i + 1):
+            if count_j > count_i:
+                sorted_phrases[i], sorted_phrases[j] = sorted_phrases[j], sorted_phrases[i]
 
     # top 20 phrases
     print("\nTop 20 contextual phrases:")
